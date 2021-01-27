@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-// import ArticleList from '../components/ArticleList';
+import ArticleList from '../components/ArticleList';
 
 const ArticleContainer = () => {
-  const [articleIds, setArticleIds] = useState([]);
+    const [articleIds, setArticleIds] = useState([]);
     const [articles, setArticles] = useState([]);
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
         loadArticleIds()
@@ -30,11 +31,18 @@ const ArticleContainer = () => {
         }));
       })
       .then(data => setArticles(data))
+      .then(setLoaded(true))
       }
   
  
   return(
-      null
+      <>
+      <h1>Hacker News - Top Articles</h1>
+      <ArticleList 
+      articles={articles}
+      loaded={loaded}
+      />
+      </>
   )
 
 }
