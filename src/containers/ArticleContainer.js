@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import ArticleList from '../components/ArticleList';
+import SearchBar from '../components/SearchBar';
 
 const ArticleContainer = () => {
     const [articleIds, setArticleIds] = useState([]);
     const [articles, setArticles] = useState([]);
     const [loaded, setLoaded] = useState(false);
+    const [articlesDefault, setArticlesDefault] = useState();
+    const [input, setInput] = useState('');
 
     useEffect(() => {
         loadArticleIds()
@@ -30,14 +33,28 @@ const ArticleContainer = () => {
         return response.json();
         }));
       })
-      .then(data => setArticles(data))
-      .then(setLoaded(true))
+      .then(data => {
+        setArticles(data)
+        setArticlesDefault(data)})
+      .then(() => setLoaded(true))
       }
+
+    const updateInput = async (input) => {
+        const filtered = articlesDefault.filter(article => {
+         return article.title.toLowerCase().includes(input.toLowerCase())
+        })
+        setInput(input);
+        setArticles(filtered);
+     }
   
  
   return(
       <>
       <h1>Hacker News - Top Articles</h1>
+      <SearchBar 
+       input={input} 
+       onChange={updateInput}
+      />
       <ArticleList 
       articles={articles}
       loaded={loaded}
