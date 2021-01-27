@@ -10,6 +10,7 @@ const ArticleList = ({articles, loaded}) => {
                     <Article
                         title={article.title}
                         url={article.url}
+                        key={article.id}
                     />
                 )
             })
