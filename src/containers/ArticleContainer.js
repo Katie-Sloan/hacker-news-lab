@@ -41,19 +41,18 @@ const ArticleContainer = () => {
 
     const updateInput = async (input) => {
         const filtered = articlesDefault.filter(article => {
-         return article.title.toLowerCase().includes(input.toLowerCase())
+        return article.title.toLowerCase().includes(input.toLowerCase())
         })
         setInput(input);
         setArticles(filtered);
-     }
+    }
   
- 
   return(
       <>
       <h1>Hacker News - Top Articles</h1>
       <SearchBar 
-       input={input} 
-       onChange={updateInput}
+      input={input} 
+      onChange={updateInput}
       />
       <ArticleList 
       articles={articles}
